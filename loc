@@ -1,0 +1,196 @@
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+
+-- 🔑 Keys relacionadas con "99 Nights"
+local validKeys = {
+    "99NIGHTS-AX29", "99NIGHTS-ZQ57", "99NIGHTS-KL73", "99NIGHTS-TY92",
+    "99NIGHTS-NX45", "99NIGHTS-VL17", "99NIGHTS-QA38", "99NIGHTS-PT96",
+    "99NIGHTS-MK25", "99NIGHTS-BY84", "99NIGHTS-QX59", "99NIGHTS-LC47",
+    "99NIGHTS-ZD93", "99NIGHTS-YL32", "99NIGHTS-JQ56", "99NIGHTS-LA57",
+    "99NIGHTS-LD21", "99NIGHTS-FN95", "99NIGHTS-AB59", "99NIGHTS-ZX19"
+}
+
+local usedKeys = {}
+
+local discordLink = "https://discord.gg/8uJDJaYNvw"
+local keyLink = "https://pasteroblox2.blogspot.com/2025/08/99-nights-in-forest.html"
+
+local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+gui.Name = "NIGHTSUI"
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local blur = Instance.new("BlurEffect")
+blur.Size = 10
+blur.Name = "NightsBlur"
+blur.Parent = Lighting
+
+local function closeUI()
+	if Lighting:FindFirstChild("NightsBlur") then
+		Lighting.NightsBlur:Destroy()
+	end
+	gui:Destroy()
+end
+
+-- Main Frame
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 340, 0, 370)
+frame.Position = UDim2.new(0.5, -170, 0.5, -185)
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+frame.BackgroundTransparency = 0.05
+frame.Active = true
+frame.Draggable = true
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+local stroke = Instance.new("UIStroke", frame)
+stroke.Color = Color3.fromRGB(0, 200, 255)
+stroke.Thickness = 2
+stroke.Transparency = 0.1
+
+-- Avatar
+local avatar = Instance.new("ImageLabel", frame)
+avatar.Size = UDim2.new(0, 70, 0, 70)
+avatar.Position = UDim2.new(0.5, -35, 0, 10)
+avatar.BackgroundTransparency = 1
+avatar.Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=100&height=100&format=png"
+
+-- Title
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, -20, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 85)
+title.Text = "99 NIGHTS - SCRIPT LOADER"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+
+-- Key Input
+local keyBox = Instance.new("TextBox", frame)
+keyBox.Size = UDim2.new(0.8, 0, 0, 38)
+keyBox.Position = UDim2.new(0.1, 0, 0, 125)
+keyBox.PlaceholderText = "Enter your key here..."
+keyBox.Font = Enum.Font.Gotham
+keyBox.TextSize = 16
+keyBox.Text = ""
+keyBox.BackgroundColor3 = Color3.fromRGB(35, 35, 50)
+keyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0, 8)
+
+-- Verify Key Button
+local verifyBtn = Instance.new("TextButton", frame)
+verifyBtn.Size = UDim2.new(0.8, 0, 0, 38)
+verifyBtn.Position = UDim2.new(0.1, 0, 0, 175)
+verifyBtn.Text = "🔒 Verify Key"
+verifyBtn.Font = Enum.Font.GothamBold
+verifyBtn.TextSize = 16
+verifyBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+verifyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", verifyBtn).CornerRadius = UDim.new(0, 8)
+
+-- Get Key Button
+local getKeyBtn = Instance.new("TextButton", frame)
+getKeyBtn.Size = UDim2.new(0.8, 0, 0, 34)
+getKeyBtn.Position = UDim2.new(0.1, 0, 0, 225)
+getKeyBtn.Text = "🌐 Get Key (Blog)"
+getKeyBtn.Font = Enum.Font.Gotham
+getKeyBtn.TextSize = 14
+getKeyBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+getKeyBtn.TextColor3 = Color3.fromRGB(200, 200, 255)
+Instance.new("UICorner", getKeyBtn).CornerRadius = UDim.new(0, 8)
+
+-- Discord Button
+local discordBtn = Instance.new("TextButton", frame)
+discordBtn.Size = UDim2.new(0.8, 0, 0, 34)
+discordBtn.Position = UDim2.new(0.1, 0, 0, 270)
+discordBtn.Text = "Join Discord"
+discordBtn.Font = Enum.Font.Gotham
+discordBtn.TextSize = 14
+discordBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+discordBtn.TextColor3 = Color3.fromRGB(150, 200, 255)
+Instance.new("UICorner", discordBtn).CornerRadius = UDim.new(0, 8)
+
+-- Coming Soon Button
+local comingSoonBtn = Instance.new("TextButton", frame)
+comingSoonBtn.Size = UDim2.new(0.8, 0, 0, 34)
+comingSoonBtn.Position = UDim2.new(0.1, 0, 0, 315)
+comingSoonBtn.Text = "Coming Soon"
+comingSoonBtn.Font = Enum.Font.Gotham
+comingSoonBtn.TextSize = 14
+comingSoonBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+comingSoonBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", comingSoonBtn).CornerRadius = UDim.new(0, 8)
+
+-- Close Button
+local closeBtn = Instance.new("TextButton", frame)
+closeBtn.Size = UDim2.new(0, 26, 0, 26)
+closeBtn.Position = UDim2.new(1, -36, 0, 10)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 14
+closeBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+closeBtn.TextColor3 = Color3.fromRGB(255, 80, 80)
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(1, 0)
+
+-- Notification Label
+local notif = Instance.new("TextLabel", gui)
+notif.Size = UDim2.new(0, 250, 0, 30)
+notif.Position = UDim2.new(0.5, -125, 1, -60)
+notif.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+notif.Text = ""
+notif.TextSize = 14
+notif.Font = Enum.Font.Gotham
+notif.TextColor3 = Color3.fromRGB(255, 255, 255)
+notif.Visible = false
+Instance.new("UICorner", notif).CornerRadius = UDim.new(0, 8)
+
+-- Functions
+local function showMessage(msg, duration)
+	notif.Text = msg
+	notif.Visible = true
+	notif.BackgroundTransparency = 0.2
+	notif.TextTransparency = 0
+	notif:TweenPosition(UDim2.new(0.5, -125, 1, -90), "Out", "Quad", 0.3, true)
+	task.wait(duration or 2)
+	notif:TweenPosition(UDim2.new(0.5, -125, 1, -60), "Out", "Quad", 0.3, true)
+	notif.Visible = false
+end
+
+-- Events
+verifyBtn.MouseButton1Click:Connect(function()
+	local inputKey = keyBox.Text
+	if usedKeys[LocalPlayer.UserId] then
+		showMessage("You already used a key.")
+	else
+		local valid = false
+		for i, key in ipairs(validKeys) do
+			if inputKey == key then
+				valid = true
+				table.remove(validKeys, i)
+				usedKeys[LocalPlayer.UserId] = true
+				showMessage("Access granted.")
+				closeUI()
+				-- 📜 Script nuevo
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/r4mpage4/LuaCom/refs/heads/main/farmchest.gey"))();
+				break
+			end
+		end
+		if not valid then
+			verifyBtn.Text = "❌ Invalid Key"
+			task.wait(1)
+			verifyBtn.Text = "🔒 Verify Key"
+		end
+	end
+end)
+
+getKeyBtn.MouseButton1Click:Connect(function()
+	setclipboard(keyLink)
+	showMessage("Key link copied to clipboard.", 4)
+end)
+
+discordBtn.MouseButton1Click:Connect(function()
+	setclipboard(discordLink)
+	showMessage("Discord link copied.")
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+	closeUI()
+end)
