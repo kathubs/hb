@@ -14,7 +14,7 @@ local validKeys = {
 local usedKeys = {}
 
 local discordLink = "https://discord.gg/8uJDJaYNvw"
-local keyLink = "https://pasteroblox2.blogspot.com/2025/08/99-nights-in-forest.html"
+local keyLink = "https://pasteroblox2.blogspot.com/2025/08/steal-brainrot_20.html"
 
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
 gui.Name = "NIGHTSUI"
